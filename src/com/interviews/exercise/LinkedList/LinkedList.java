@@ -147,35 +147,53 @@ public class LinkedList {
 	}
 
 	// Delete list
-	public Node deleteList(Node head){
+	public Node deleteList(Node head) {
 		head = null;
-		return  head;
+		return head;
 	}
 
 	// Reverse
-	public  Node reverse(Node node) {
-		if (head == null) return head;
-		if (head.getNext() == null) return  head;
+	public Node reverse(Node node) {
+		if (head == null)
+			return head;
+		if (head.getNext() == null)
+			return head;
 
 		Node curr = head;
 		Node next = curr.getNext();
 		Node loop = null;
 
-		while (next!=null){
+		while (next != null) {
 			curr.setNext(loop);
 			loop = curr;
 			curr = next;
 			next = next.getNext();
 		}
 
-		 head = curr;
+		head = curr;
 		head.setNext(loop);
-		return  head;
+		return head;
 	}
 
-	public  int size() {
-		return  this.size;
+	public int size() {
+		return this.size;
 	}
 
+	public boolean isCyclic(Node head) {
+		Node slow = head;
+		Node fast = head;
+
+		boolean isCyclic = false;
+		while (fast != null && fast.getNext() != null) {
+			slow = slow.getNext();
+			fast = fast.getNext().getNext();
+		}
+
+		if (slow == fast) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }
