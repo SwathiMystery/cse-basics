@@ -6,6 +6,8 @@ package com.interviews.exercise.LinkedList;
  * 2.Read at a given index
  * 3. Delete at an index, delete a node, delete nth node from the tail, delete the list
  * 4. Reverse a list
+ * 5. Cyclic
+ * 6. Point of convergence if given 2 nodes if they do so.
  *
  * @author swathi on 2/8/15.
  */
@@ -194,6 +196,66 @@ public class LinkedList {
 		} else {
 			return false;
 		}
+	}
+
+	public void findConvergence(Node head1, Node head2) {
+		int length1 = 0;
+		int length2 = 0;
+		Node curr1 = head1;
+		Node curr2 = head2;
+
+		while (true) {
+			if (curr1.getNext() == null) {
+				break;
+			}
+			curr1 = curr1.getNext();
+			length1++;
+		}
+
+		while (true) {
+			if (curr2.getNext() == null) {
+				break;
+			}
+			curr2 = curr2.getNext();
+			length2++;
+		}
+
+		// if both curr1 and curr2 are pointing to null, they converged
+
+		boolean isConverged = curr1 == curr2;
+
+		if (isConverged) {
+			System.out.println(" Two nodes have a convergence");
+
+			Node longerNode = null;
+			Node shorterNode = null;
+
+			if (length1 < length2) {
+				longerNode = head2;
+				shorterNode = head1;
+			} else {
+				longerNode = head1;
+				shorterNode = head2;
+			}
+
+			int difference = Math.abs(length1-length2);
+
+			while (difference > 0) {
+				longerNode = longerNode.getNext();
+				difference--;
+			}
+
+			while (longerNode!=shorterNode) {
+				longerNode = longerNode.getNext();
+				shorterNode = shorterNode.getNext();
+			}
+
+			System.out.println("Convergent node " + longerNode.getData());
+		} else {
+			System.out.println("Two nodes do not converge");
+		}
+
+
 	}
 
 }
